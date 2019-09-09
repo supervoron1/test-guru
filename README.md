@@ -1,5 +1,17 @@
 # README
 
+TestGuru
+
+This is a study project. It's an application for creating and managing different tests.
+
+List of entities:
+ - User
+ - Test
+ - Question
+ - Answer
+ - Result
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
