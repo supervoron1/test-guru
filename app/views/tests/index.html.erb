@@ -1,0 +1,25 @@
+<h1>Tests</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Level</th>
+      <th>Category</th>
+      <th>Author</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tests.each do |test| %>
+    <tr>
+      <td><a href="<%= test_path(test.id) %>"><%= test.title %></a></td>
+      <td><%= test.level %></td>
+      <td><%= test.category.title %></td>
+      <td><%= test.author.login %></td>
+      <td><%= link_to 'Delete', test, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'Create test', new_test_path %>
