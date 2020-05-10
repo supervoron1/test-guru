@@ -1,6 +1,7 @@
 <p>Title: <strong><%= @test.title %></strong></p>
-<p>Level: <strong><%= @test.level %></strong></p><br>
+<p>Level: <strong><%= @test.level %></strong></p>
 
-<%= link_to 'Show questions', test_questions_path(@test.id) %> |
+<%= render partial: "questions/test-questions" %>
+<br>
 <%= link_to 'New question', new_test_question_path(@test) %> |
 <%= link_to 'Back to tests', tests_path %>
