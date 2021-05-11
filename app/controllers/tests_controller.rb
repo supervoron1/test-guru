@@ -1,6 +1,6 @@
 class TestsController < ApplicationController
 
-  before_action :find_test, only: %i[show destroy] # only: чтобы ограничить перед каким методом нужно вызывать
+  before_action :find_test, only: %i[show edit update destroy] # only: чтобы ограничить перед каким методом нужно вызывать
   after_action :send_log_message
   around_action :log_execute_time
 
@@ -42,21 +42,41 @@ class TestsController < ApplicationController
     @test = Test.new
   end
 
+  def edit
+
+  end
+
   def create
     # result=["Class: #{params.class}", "Parameters: #{params.inspect}"]
     # render plain: result.join("\n")
     # render plain: test.inspect
     @test = Test.new(test_params)
-    if @test.save
-      redirect_to root_path
-    else
-      redirect_to "/500.html", layout: false
+    respond_to do |format|
+      if @test.save
+        format.html { redirect_to tests_path, notice: 'Test was successfully created.' }
+        format.json { render :show, status: :created, location: @test }
+      else
+        format.html { render :new }
+        format.json { render json: @test.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @test.update(test_params)
+        format.html { redirect_to tests_path, notice: 'Test was successfully updated.' }
+        format.json { render :show, status: :created, location: @test }
+      else
+        format.html { render :new }
+        format.json { render json: @test.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @test.destroy
-    render plain: 'Test was successfully deleted.'
+    redirect_to tests_path
   end
 
   def search
